@@ -1,7 +1,12 @@
 import React from "react";
-import { Outlet, Link, useLoaderData } from "react-router-dom";
-import { getContacts } from "./contacts";
-import { useEffect } from "react";
+import { Outlet, Link, useLoaderData, Form } from "react-router-dom";
+// Form adalah komponen yang akan mengirimkan data ke server menggunakan metode POST.
+import { getContacts, createContact } from "./contacts";
+
+export async function action() {
+  const contact = await createContact();
+  return { contact };
+}
 
 export async function loader() {
   const contacts = await getContacts();
@@ -10,6 +15,7 @@ export async function loader() {
 
 const App = () => {
   const { contacts } = useLoaderData();
+
   return (
     <>
       <div id="sidebar">
@@ -26,9 +32,9 @@ const App = () => {
             <div id="search-spinner" aria-hidden hidden={true} />
             <div className="sr-only" aria-live="polite"></div>
           </form>
-          <form method="post">
+          <Form method="post">
             <button type="submit">New</button>
-          </form>
+          </Form>
         </div>
         <nav>
           {contacts.length ? (
