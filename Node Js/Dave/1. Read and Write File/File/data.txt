@@ -1,2 +1,0 @@
-Menulis file dengan Node Js 
-Menambahkan data ke file dengan Node Js
